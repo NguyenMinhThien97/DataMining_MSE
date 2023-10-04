@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler
 from sklearn.linear_model import Lasso
 from sklearn.preprocessing import LabelEncoder
 import joblib
@@ -33,9 +32,6 @@ def build_model(df):
 
     y = df['price']
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-
-    scaler = MinMaxScaler()
-    X_train = scaler.fit_transform(X_train)
 
     reg = Lasso(alpha=1)
     model = reg.fit(X_train, y_train)
@@ -93,9 +89,13 @@ with tab1:
                                     columns=['area', 'bedrooms', 'bathrooms', 'stories', 'mainroad', 'guestroom',
                                              'basement', 'hotwaterheating', 'airconditioning', 'parking',
                                              'prefarea', 'furnishingstatus'])
+            
             result = model.predict(data_preprocess(df_input))
+            
+            # Định dạng giá trị tiền tệ với 2 chữ số thập phân
+            formatted_price = "{:,.2f}".format(result[0], 2)
             st.success(
-                f"House Prices 🏠 is {round(result[0], 2)}"
+                f"House Prices 🏠 is {formatted_price}"
             )
 with tab2:
     st.header("A dog")
