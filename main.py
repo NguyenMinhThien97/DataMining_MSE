@@ -70,11 +70,15 @@ with tab1:
         mapping_furnishing_status = {"furnished": "Furnished", "semi-furnished": "Semi-Furnished",
                                      "unfurnished": "Unfurnished"}
 
-        area = st.number_input("The total area of the house in square feet", value=0, min_value=0)
-        bedrooms = st.number_input("The number of bedrooms in the house", value=0, min_value=0)
-        bathrooms = st.number_input("The number of bathrooms in the house", value=0, min_value=0)
-        stories = st.number_input("The number of stories in the house", value=0, min_value=0)
-        parking = st.number_input("The number of parking spaces available within the house", value=0, min_value=0)
+        col1, col2 = st.columns(2)
+        with col1:
+            area = st.number_input("The total area of the house in square feet", value=0, min_value=0)
+            bedrooms = st.number_input("The number of bedrooms in the house", value=0, min_value=0)
+            parking = st.number_input("The number of parking spaces available within the house", value=0, min_value=0)
+        with col2:
+            bathrooms = st.number_input("The number of bathrooms in the house", value=0, min_value=0)
+            stories = st.number_input("The number of stories in the house", value=0, min_value=0)
+
         main_road = st.radio("Whether the house is connected to the main road", ("yes", "no"),
                              format_func=lambda x: mapping_yes_no.get(x))
         guestroom = st.radio("Whether the house has a guest room", ("yes", "no"),
